@@ -13,32 +13,67 @@ class MyGetXController extends GetxController {
   RxInt starCount = 0.obs;
 
   RxBool visible = false.obs;
-  RxInt count = 0.obs;
 
-  void startCountdown() {
+  RxList<String> selectedItemNames =
+      <String>[].obs; // New RxList for selected item names
+
+  RxInt count = 0.obs;
+  RxBool countdownFinished = false.obs;
+
+  Timer? countdownTimer;
+
+  @override
+  void onClose() {
+    // Cancel the countdown timer when the controller is closed
+    countdownTimer?.cancel();
+    super.onClose();
+  }
+
+  void resetCountdown(Function? onCountdownFinished) {
+    // Reset the countdown values and cancel the timer
+    count.value = 10;
+    countdownFinished.value = false;
+    countdownTimer?.cancel();
+
+    // Restart the countdown
+    startCountdown(
+      onCountdownFinished
+    );
+  }
+
+  void startCountdown(Function? onCountdownFinished) {
     count.value = 10; // Set the initial value to 10
 
     // Start the countdown timer
-    Timer.periodic(Duration(seconds: 1), (timer) {
+    countdownTimer = Timer.periodic(Duration(seconds: 1), (timer) {
       if (count.value > 0) {
         // Decrement count by 1 every second
         count.value--;
       } else {
         // Stop the timer when count reaches 0
         timer.cancel();
+
+        // Set the countdownFinished flag to true
+        countdownFinished.value = true;
+        // Execute the callback function if provided
+        if (onCountdownFinished != null) {
+          onCountdownFinished();
+        }
       }
     });
   }
-
 
   void toggleVisible() {
     visible.toggle();
   }
 
+  void turnOnVisible() {
+    visible.value = true;
+  }
+
   void turnOff() {
     // Set the value of 'visible' to false
     visible.value = false;
-
     // Update the UI reactively
     update();
   }
@@ -53,7 +88,7 @@ class MyGetXController extends GetxController {
         name: "Dirty toilet bowl",
         image: "assets/asset5.png",
         id: 2,
-        isSelect: true),
+        isSelect: false),
     ToiletItem(
         name: "Dirty basin",
         image: "assets/asset4.png",
@@ -72,7 +107,7 @@ class MyGetXController extends GetxController {
         id: 6,
         isSelect: false),
     ToiletItem(
-        name: "Foul smell", image: "assets/asset1.png", id: 7, isSelect: true),
+        name: "Foul smell", image: "assets/asset1.png", id: 7, isSelect: false),
     ToiletItem(
         name: "Dirty floor",
         image: "assets/asset6.png",
@@ -80,8 +115,28 @@ class MyGetXController extends GetxController {
         isSelect: false),
   ].obs;
 
-  void toggleSelection(int index) {
-    items[index] = items[index].copyWith(isSelect: !items[index].isSelect);
+  void toggleSelection({int? index,Function? function}) {
+    ToiletItem currentItem = items[index!];
+    items[index!] = currentItem.copyWith(isSelect: !currentItem.isSelect);
+
+    if (currentItem.isSelect) {
+      // If the item is deselected, remove its name from the RxList
+
+      selectedItemNames.remove(currentItem.name);
+      resetCountdown(function);
+    } else {
+      // If the item is selected, add its name to the RxList
+
+      selectedItemNames.add(currentItem.name);
+      resetCountdown(function);
+    }
+  }
+
+  //reset all toilet Item's  isSelected.value = false ;
+  void resetToiletItemsSelection() {
+    for (int i = 0; i < items.length; i++) {
+      items[i] = items[i].copyWith(isSelect: false);
+    }
   }
 
   resetForm() {
@@ -91,6 +146,10 @@ class MyGetXController extends GetxController {
     star4.value = false;
     star5.value = false;
 
+    starCount.value = 0;
+    visible.value = false;
+    countdownTimer!.cancel();
+    resetToiletItemsSelection();
     update();
   }
 

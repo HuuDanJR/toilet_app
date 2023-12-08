@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:toilet_app/getx/my_getx_controller.dart';
 import 'package:toilet_app/utils/dialog_body.dart';
+import 'package:toilet_app/utils/dialog_page.dart';
 import 'package:toilet_app/utils/mycolors.dart';
 import 'package:toilet_app/utils/padding.dart';
 import 'package:toilet_app/utils/text.dart';
@@ -52,10 +53,12 @@ class _HomePageState extends State<HomePage> {
                       height: height, width: 115.0, humid: 55, tempurature: 28),
                   Obx(() => Visibility(
                         visible: controllerGetx.visible.value,
-                        child: dialogBody(
-                            height: height,
-                            width: width,
-                            controller_getx: controllerGetx),
+                        child:
+                        //  dialogBody(
+                        //     height: height,
+                        //     width: width,
+                        //     controller_getx: controllerGetx),
+                        DialogPage()
                       ))
                 ],
               )),
@@ -80,8 +83,9 @@ class _HomePageState extends State<HomePage> {
                       controllerGetx: controllerGetx,
                       onPress: () {
                         print('open dialog');
-                        controllerGetx.toggleVisible();
-                        controllerGetx.startCountdown();
+                        // controllerGetx.toggleVisible();
+                        // controllerGetx.startCountdown();
+                        controllerGetx.turnOnVisible();
                       })
                 ],
               )),

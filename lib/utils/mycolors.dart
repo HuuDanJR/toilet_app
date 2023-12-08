@@ -6,7 +6,9 @@ class MyColor {
   static const Color pinkBG = Color(0xFFFCB3CE);
   static const Color yellowBG = Color(0xFFE6B953);
   static const Color greenBG = Color(0xFF4EC061);
+  static const Color greenBG2 = Color(0xFFdefabb);
   static const Color yellowBG2 = Color(0xFFE6BC5C);
+  static const Color yellowBG3 = Color(0xFFE65100);
   static const Color purpleBG = Color(0xFF800080);
   static const Color greyBG = Color(0xFFAAAAAA);
   // ignore: constant_identifier_names

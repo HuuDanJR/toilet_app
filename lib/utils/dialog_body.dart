@@ -37,8 +37,8 @@ Widget dialogBody({height, width, MyGetXController? controller_getx}) {
               var item = controller_getx.items[index];
               return GestureDetector(
                   onTap: () {
-                    print('ontap $index ${controller_getx.items[index].isSelect}');
-                    controller_getx.toggleSelection(index);
+                    print('ontap $index ${controller_getx.items[index].name} ${controller_getx.items[index].isSelect} ');
+                    // controller_getx.toggleSelection(index);
                   },
                   child: Column(
                     children: [
@@ -50,11 +50,13 @@ Widget dialogBody({height, width, MyGetXController? controller_getx}) {
                                   PaddingDefault.padding24),
                               border: Border.all(
                                   color:
-                                      controller_getx.items[index].isSelect == true
+                                      controller_getx.items[index].isSelect ==
+                                              true
                                           ? MyColor.purpleBG
                                           : MyColor.black_text,
                                   width:
-                                      controller_getx.items[index].isSelect == true
+                                      controller_getx.items[index].isSelect ==
+                                              true
                                           ? 5
                                           : 1)),
                           child: Container(
@@ -84,32 +86,39 @@ Widget dialogBody({height, width, MyGetXController? controller_getx}) {
         const SizedBox(
           height: 25.0,
         ),
-        customPressButton(
-          padding: PaddingDefault.padding24,
-          onPress: () {
-            print('click submit');
-            controller_getx.turnOff();
+        GetBuilder<MyGetXController>(
+          builder: (controller) {
+            return customPressButton(
+              padding: PaddingDefault.padding24,
+              onPress: () {
+                // controller_getx.turnOff();
+                // controller.resetForm();
+                print('content: ${controller.selectedItemNames.value.toString()}');
+                print('star: ${controller.starCount.value}');
+              },
+              child: Container(
+                width: 175.0,
+                height: 50.0,
+                alignment: Alignment.center,
+                child: text_custom(
+                    text: 'SUBMIT',
+                    size: TextSizeDefault.text28,
+                    weight: FontWeight.bold,
+                    color: MyColor.white),
+                decoration: BoxDecoration(
+                    color: MyColor.yellowBG2,
+                    border: Border.all(color: MyColor.white),
+                    borderRadius: BorderRadius.circular(25)),
+              ),
+            );
           },
-          child: Container(
-            width: 175.0,
-            height: 50.0,
-            alignment: Alignment.center,
-            child: text_custom(
-                text: 'SUBMIT',
-                size: TextSizeDefault.text28,
-                weight: FontWeight.bold,
-                color: MyColor.white),
-            decoration: BoxDecoration(
-                color: MyColor.yellowBG2,
-                border: Border.all(color: MyColor.white),
-                borderRadius: BorderRadius.circular(25)),
-          ),
         ),
         const SizedBox(
           height: PaddingDefault.pading12,
         ),
         Obx(() => text_custom(
-            text: 'Auto submit after ${controller_getx.count.value} seconds without action',
+            text:
+                'Auto submit after ${controller_getx.count.value} seconds without action',
             size: TextSizeDefault.text16,
             color: MyColor.grey,
             weight: FontWeight.w300))
