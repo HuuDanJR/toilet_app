@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "551431577143",
+    "project_id": "toilet-info",
+    "storage_bucket": "toilet-info.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:551431577143:android:3614d64e247934c97669b2",
+        "android_client_info": {
+          "package_name": "com.huudan.toilet_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDe9Fdxa2hWD6_Dfd4cFSKQGPt-6S3j_xY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

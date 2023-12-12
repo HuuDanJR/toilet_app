@@ -32,6 +32,9 @@
   <title>toilet_app</title>
   <link rel="manifest" href="manifest.json">
 
+
+  
+
   <script>
     // The value below is injected by flutter build, do not touch.
     const serviceWorkerVersion = null;
@@ -40,6 +43,23 @@
   <script src="flutter.js" defer></script>
 </head>
 <body>
+  <!-- Add this block inside the <body> tag -->
+<script src="https://www.gstatic.com/firebasejs/9.1.2/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.1.2/firebase-analytics.js"></script>
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyCLKulk9yiyhy6P7_d5tNSeV837CVmlUBA",
+    authDomain: "toilet-info.firebaseapp.com",
+    databaseURL: "https://toilet-info-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "toilet-info",
+    storageBucket: "toilet-info.appspot.com",
+    messagingSenderId: "551431577143",
+    appId: "1:551431577143:web:35ceeb0d935fcf1b7669b2",
+    measurementId: "G-RSN4SQ0LP2"
+  };
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+</script>
   <script>
     window.addEventListener('load', function(ev) {
       // Download main.dart.js

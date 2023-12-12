@@ -30,8 +30,13 @@ environment:
 dependencies:
   cupertino_icons: ^1.0.2
   dio: ^5.4.0
+  firebase_auth: ^4.15.2
+  firebase_core: ^2.24.2
+  firebase_database: ^10.3.8
+  firebase_messaging: ^14.7.8
   flutter:
     sdk: flutter
+  flutter_launcher_icons: ^0.13.1
   get: ^4.6.6
   google_fonts: ^6.1.0
 
@@ -39,6 +44,12 @@ dev_dependencies:
   flutter_lints: ^2.0.0
   flutter_test:
     sdk: flutter
+flutter_icons:
+  image_path: "assets/toilet_icon.png"
+  android: true
+  ios: true
+  # optionally, as transparency is not allowed on app store
+  # remove_alpha_ios: true
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -77,6 +88,9 @@ flutter:
     - assets/toilet_grey.png
     - assets/tempurature.png
     - assets/humid.png
+    - assets/information.png
+    - assets/success.png
+    - assets/sucess2.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
   # For details regarding adding assets from package dependencies, see

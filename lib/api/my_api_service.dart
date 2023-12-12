@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
-const CREATE_FEEDBACK = 'http://localhost:8080/create_feedback';
-const LIST_FEEDBACK = 'http://localhost:8080/list_feedback';
+import 'package:toilet_app/utils/mystring.dart';
+// const CREATE_FEEDBACK = 'http://localhost:8080/create_feedback';
+// const LIST_FEEDBACK = 'http://localhost:8080/list_feedback';
+
 
 class MyAPIService {
   Dio dio = Dio();
@@ -16,7 +18,7 @@ class MyAPIService {
       "createdAt": DateTime.now().toString()
     };
     final response = await dio.post(
-      '$CREATE_FEEDBACK',
+      '${MyString.CREATE_FEEDBACK}',
       data: body,
       options: Options(
         contentType: Headers.jsonContentType,
@@ -28,7 +30,7 @@ class MyAPIService {
 
   Future<dynamic> fetchFeedBack() async {
     final response = await dio.get(
-      '$LIST_FEEDBACK',
+      '${MyString.LIST_FEEDBACK}',
       options: Options(
         contentType: Headers.jsonContentType,
         headers: {

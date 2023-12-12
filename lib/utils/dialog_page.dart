@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:toilet_app/api/my_api_service.dart';
 import 'package:toilet_app/getx/my_getx_controller.dart';
+import 'package:toilet_app/utils/dialog_sucess.dart';
 import 'package:toilet_app/utils/mycolors.dart';
 import 'package:toilet_app/utils/padding.dart';
 import 'package:toilet_app/utils/text.dart';
@@ -41,14 +42,14 @@ class _DialogPageState extends State<DialogPage> {
       width: width * .825,
       height: height * .725,
       decoration: BoxDecoration(
-      color: MyColor.white, borderRadius: BorderRadius.circular(45)),
+          color: MyColor.white, borderRadius: BorderRadius.circular(45)),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           //gridview builder
           Container(
-            height: height * .555,
+            height: height * .575,
             width: width * .825,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(PaddingDefault.padding24),
@@ -59,9 +60,9 @@ class _DialogPageState extends State<DialogPage> {
               padding: const EdgeInsets.all(PaddingDefault.padding24),
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 4, // 2 columns
-                  crossAxisSpacing:  PaddingDefault.padding24,
-                  mainAxisSpacing: PaddingDefault.padding24,
-                  childAspectRatio: 1),
+                  crossAxisSpacing: PaddingDefault.pading12,
+                  mainAxisSpacing: PaddingDefault.pading12,
+                  childAspectRatio: 1.215),
               itemCount: controller_getx!.items.length,
               itemBuilder: (context, index) {
                 var item = controller_getx.items[index];
@@ -73,7 +74,8 @@ class _DialogPageState extends State<DialogPage> {
                           index: index,
                           function: () {
                             print('reach 0 - reset count down  = 0 ');
-                            createFBAPIs(context: context, controller: controller_getx);
+                            createFBAPIs(
+                                context: context, controller: controller_getx);
                           });
                     },
                     child: Column(
@@ -83,10 +85,9 @@ class _DialogPageState extends State<DialogPage> {
                             padding: EdgeInsets.all(PaddingDefault.padding24),
                             decoration: BoxDecoration(
                                 color: controller_getx.items[index].isSelect ==
-                                                true
-                                            ? MyColor.greenBG2
-                                            : Colors.transparent
-                                            ,
+                                        true
+                                    ? MyColor.greenBG2
+                                    : Colors.transparent,
                                 borderRadius: BorderRadius.circular(
                                     PaddingDefault.padding24),
                                 border: Border.all(
@@ -98,7 +99,7 @@ class _DialogPageState extends State<DialogPage> {
                                     width:
                                         controller_getx.items[index].isSelect ==
                                                 true
-                                            ? 5
+                                            ? 3.5
                                             : 1)),
                             child: Container(
                               height: 85.0,
@@ -113,7 +114,7 @@ class _DialogPageState extends State<DialogPage> {
                           ),
                         ),
                         const SizedBox(
-                          height: PaddingDefault.pading08,
+                          height: PaddingDefault.padding04,
                         ),
                         text_custom(
                             text: '${controller_getx.items[index].name}',
@@ -125,7 +126,7 @@ class _DialogPageState extends State<DialogPage> {
             ),
           ),
           const SizedBox(
-            height: 25.0,
+            height: PaddingDefault.pading08,
           ),
           GetBuilder<MyGetXController>(
             builder: (controller) {
@@ -184,6 +185,8 @@ createFBAPIs({MyGetXController? controller, context}) {
       .then((value) {
     if (value['status']) {
       customSnackBar(context: context, message: value['message']);
+      showDialogSucess(context: context, dismissDuration:const Duration(seconds: 2));
+      print('show success dialog');
     }
   }).whenComplete(() {
     controller.resetForm();
